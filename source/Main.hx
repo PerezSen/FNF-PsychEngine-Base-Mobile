@@ -197,3 +197,21 @@ class Main extends Sprite
 			FlxG.fullscreen = !FlxG.fullscreen;
 	}
 }
+
+	import lime.Assets;
+
+class ModLoader
+{
+    public static function loadMods()
+    {
+        var modPath = StorageType.INTERNAL_MODS;
+        var modFiles = Assets.list(modPath); // Listar archivos en el directorio assets/mods
+        
+        for (file in modFiles)
+        {
+            trace("Cargando mod: " + file);
+            var modData = Assets.getText(modPath + file); // Cargar el contenido del archivo de mod
+            // Procesar los mods según sea necesario
+        }
+    }
+}
