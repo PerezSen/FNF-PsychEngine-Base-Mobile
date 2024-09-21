@@ -149,47 +149,20 @@ class StorageUtil
 @:runtimeValue
 enum abstract StorageType(String) from String to String
 {
-	final forcedPath = '/storage/emulated/0/';
-	final packageNameLocal = 'com.shadowmario.psychengine';
-	final fileLocal = 'PsychEngine';
+    final packageNameLocal = 'com.shadowmario.psychengine';
+    final fileLocal = 'PsychEngine';
 
-	var EXTERNAL_DATA = "EXTERNAL_DATA";
-	var EXTERNAL_OBB = "EXTERNAL_OBB";
-	var EXTERNAL_MEDIA = "EXTERNAL_MEDIA";
-	var EXTERNAL = "EXTERNAL";
+    var INTERNAL_MODS = "INTERNAL_MODS"; // Nueva entrada para mods internos
 
-	public static function fromStr(str:String):StorageType
-	{
-		final EXTERNAL_DATA = AndroidContext.getExternalFilesDir();
-		final EXTERNAL_OBB = AndroidContext.getObbDir();
-		final EXTERNAL_MEDIA = AndroidEnvironment.getExternalStorageDirectory() + '/Android/media/' + lime.app.Application.current.meta.get('packageName');
-		final EXTERNAL = AndroidEnvironment.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file');
+    public static function fromStr(str:String):StorageType
+    {
+        final INTERNAL_MODS = "assets/mods/"; // Ruta interna de mods dentro de los assets
 
-		return switch (str)
-		{
-			case "EXTERNAL_DATA": EXTERNAL_DATA;
-			case "EXTERNAL_OBB": EXTERNAL_OBB;
-			case "EXTERNAL_MEDIA": EXTERNAL_MEDIA;
-			case "EXTERNAL": EXTERNAL;
-			default: StorageUtil.getExternalDirectory(str) + '.' + fileLocal;
-		}
-	}
-
-	public static function fromStrForce(str:String):StorageType
-	{
-		final EXTERNAL_DATA = forcedPath + 'Android/data/' + packageNameLocal + '/files';
-		final EXTERNAL_OBB = forcedPath + 'Android/obb/' + packageNameLocal;
-		final EXTERNAL_MEDIA = forcedPath + 'Android/media/' + packageNameLocal;
-		final EXTERNAL = forcedPath + '.' + fileLocal;
-
-		return switch (str)
-		{
-			case "EXTERNAL_DATA": EXTERNAL_DATA;
-			case "EXTERNAL_OBB": EXTERNAL_OBB;
-			case "EXTERNAL_MEDIA": EXTERNAL_MEDIA;
-			case "EXTERNAL": EXTERNAL;
-			default: StorageUtil.getExternalDirectory(str) + '.' + fileLocal;
-		}
-	}
+        return switch (str)
+        {
+            case "INTERNAL_MODS": INTERNAL_MODS; // Caso para los mods internos
+            default: ""; // Otros casos según sea necesario
+        }
+    }
 }
 #end
